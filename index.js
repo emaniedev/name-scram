@@ -1,5 +1,5 @@
 "use strict";
-const FACTOR = 30;
+const FACTOR = 60;
 (() => {
     const rawString = ["13", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*",
         "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*",
@@ -17,7 +17,7 @@ const FACTOR = 30;
         "*", "*", "*", "*", "*", "*", "*", "M", "*", "*", "*", "*", "*",
         "*", "*", "*", "*", "E", "Y", "R", "A", "*", "*", "*", "*", "*",
         "*", "*", "*", "*", "D", "*", "*", "K", "*", "*", "*", "*", "*",
-        "*", "*", "*", "*", "G", "*", "*", "K", "*", "*", "*", "*", "*",
+        "*", "*", "*", "*", "G", "*", "*", "K", "*", , "*", "*", "*", "*",
         "*", "*", "*", "*", "A", "I", "L", "E", "N", "*", "*", "*", "*",
         "*", "*", "*", "*", "R", "O", "C", "I", "O", "*", "*", "*", "*",
         "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*",
@@ -53,7 +53,7 @@ const FACTOR = 30;
         "*", "*", "*", "*", "*", "*", "*", "M", "*", "*", "*", "*", "*",
         "*", "*", "*", "*", "E", "Y", "R", "A", "*", "*", "*", "*", "*",
         "*", "*", "*", "*", "D", "*", "*", "K", "*", "*", "*", "*", "*",
-        "*", "*", "*", "*", "G", "*", "*", "K", "*", "*", "*", "*", "*",
+        "*", "*", "*", "*", "G", "*", "*", "K", "*", , "*", "*", "*", "*",
         "*", "*", "*", "*", "A", "I", "L", "E", "N", "*", "*", "*", "*",
         "*", "*", "*", "*", "R", "O", "C", "I", "O", "*", "*", "*", "*",
         "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*",
@@ -76,25 +76,15 @@ const FACTOR = 30;
     const raws = [];
     raws.push(rawString);
     raws.push(rawString3);
-    raws.push(rawString2);
-    raws.push(rawString5);
-    raws.push(rawString2);
-    raws.push(rawString4);
-    raws.push(rawString6);
-    raws.push(rawString);
-    raws.push(rawString3);
-    raws.push(rawString2);
-    raws.push(rawString5);
-    raws.push(rawString2);
     raws.push(rawString4);
     raws.push(rawString6);
     const div = document.getElementById("bucket");
-    div?.setAttribute("style", "display: flex;height: 90vh; width: 75vw;flex-direction: row; flex-wrap: wrap; justify-content: space-evenly");
-    let i = 0;
+    div?.setAttribute("style", "display: flex;height: 90vh; width: 65vw;flex-direction: row; flex-wrap: wrap; justify-content: space-evenly");
     for (const raw of raws) {
         const canvas = document.createElement("canvas");
-        canvas.id = `canvas${i}`;
-        canvas.setAttribute("style", "position:unset;margin: auto;padding: 2%; flex-basis: 23%");
+        canvas.setAttribute("style", "position:unset;margin: auto;padding: 5%; flex-basis: 23%");
+        div?.setAttribute("style", "display: flex;height: 90vh; width: 65vw;flex-direction: row; flex-wrap: wrap; justify-content: space-evenly");
+        div?.appendChild(canvas);
         if (!canvas)
             throw new Error("Browser don't support canvas element!");
         const ctx = canvas.getContext("2d");
@@ -102,8 +92,8 @@ const FACTOR = 30;
             throw new Error("Can't get the context of the canvas!");
         const s = createScram(raw);
         console.log(s);
-        ctx.canvas.width = s.width * FACTOR;
-        ctx.canvas.height = s.height * FACTOR;
+        ctx.canvas.width = s.width * FACTOR / raws.length;
+        ctx.canvas.height = s.height * FACTOR / raws.length;
         ctx.fillStyle = "#FF0000FF";
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         const cellWidth = ctx.canvas.width / s.width;
@@ -134,8 +124,6 @@ const FACTOR = 30;
             }
         }
         ctx.stroke();
-        div?.appendChild(canvas);
-        i++;
     }
     function createScram(input) {
         console.log(input);
